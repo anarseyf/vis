@@ -56,7 +56,7 @@ export class AlgorithmsComponent implements OnInit, AfterContentInit {
         this.drawGraph();
 
         if (remaining > 0) {
-            setTimeout(this.addRandomEdges.bind(this, remaining - 1), 100);
+            setTimeout(this.addRandomEdges.bind(this, remaining - 1), 10);
         }
         else {
             console.log(this.graph.toString());

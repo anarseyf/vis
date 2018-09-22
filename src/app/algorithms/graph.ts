@@ -83,7 +83,7 @@ export class Graph {
         edge.node1.addEdge(edge);
         edge.node2.addEdge(edge);
 
-        console.log(`Added: ${edge.toString()}`)
+        // console.log(`Added: ${edge.toString()}`)
     }
 
     toString() {
