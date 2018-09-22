@@ -86,6 +86,7 @@ var AlgorithmsComponent = /** @class */ (function () {
         var edgeCount = this.randomNumber(maxEdges);
         this.graph = new _graph__WEBPACK_IMPORTED_MODULE_2__["Graph"](nodes);
         this.addRandomEdges(edgeCount);
+        this.visitRandomNodes(100);
     }
     AlgorithmsComponent.prototype.ngOnInit = function () {
     };
@@ -95,18 +96,30 @@ var AlgorithmsComponent = /** @class */ (function () {
     AlgorithmsComponent.prototype.randomNumber = function (max) {
         return Math.round(Math.random() * max);
     };
-    AlgorithmsComponent.prototype.addRandomEdges = function (remaining) {
+    AlgorithmsComponent.prototype.addRandomEdges = function (num) {
         var max = this.graph.nodes.size - 1;
-        var i1 = this.randomNumber(max), i2 = this.randomNumber(max);
+        for (var i = 0; i < num; i++) {
+            var i1 = this.randomNumber(max), i2 = this.randomNumber(max);
+            var nodes = Array.from(this.graph.nodes);
+            var edge = new _graph__WEBPACK_IMPORTED_MODULE_2__["Edge"](nodes[i1], nodes[i2]);
+            this.graph.addEdge(edge);
+        }
+        this.drawGraph();
+        console.log("" + this.graph);
+    };
+    AlgorithmsComponent.prototype.visitRandomNodes = function (remaining) {
+        var max = this.graph.nodes.size - 1;
         var nodes = Array.from(this.graph.nodes);
-        var edge = new _graph__WEBPACK_IMPORTED_MODULE_2__["Edge"](nodes[i1], nodes[i2]);
-        this.graph.addEdge(edge);
+        var from = nodes[this.randomNumber(max)];
+        var neighbors = Array.from(from.neighbors());
+        var to = neighbors[this.randomNumber(neighbors.length)];
+        var success = this.graph.visit(from, to);
         this.drawGraph();
         if (remaining > 0) {
-            setTimeout(this.addRandomEdges.bind(this, remaining - 1), 100);
+            setTimeout(this.visitRandomNodes.bind(this, remaining - 1), success ? 100 : 0);
         }
         else {
-            console.log(this.graph.toString());
+            console.log("Visited random nodes: " + this.graph);
         }
     };
     AlgorithmsComponent.prototype.drawGraph = function () {
@@ -128,8 +141,11 @@ var AlgorithmsComponent = /** @class */ (function () {
         })
             .attr("r", 6)
             .attr("stroke", "gray")
-            .attr("stroke-width", 1)
-            .attr("fill", "lightgray");
+            .attr("stroke-width", 1);
+        circles
+            .attr("fill", function (d) {
+            return d.visited ? 'darkgray' : 'lightgray';
+        });
         circles.exit().remove();
     };
     AlgorithmsComponent.prototype.drawEdges = function () {
@@ -142,8 +158,14 @@ var AlgorithmsComponent = /** @class */ (function () {
             .attr("x1", function (edge) { return edge.node1.x; })
             .attr("x2", function (edge) { return edge.node2.x; })
             .attr("y1", function (edge) { return edge.node1.y; })
-            .attr("y2", function (edge) { return edge.node2.y; })
-            .attr("stroke", "gray");
+            .attr("y2", function (edge) { return edge.node2.y; });
+        lines
+            .attr("stroke", function (d) {
+            return d.visited ? 'darkgray' : 'lightgray';
+        })
+            .attr("stroke-width", function (d) {
+            return d.visited ? 3 : 1;
+        });
         lines.exit().remove();
     };
     AlgorithmsComponent = __decorate([
@@ -173,53 +195,27 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Node", function() { return Node; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Edge", function() { return Edge; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Graph", function() { return Graph; });
-var __values = (undefined && undefined.__values) || function (o) {
-    var m = typeof Symbol === "function" && o[Symbol.iterator], i = 0;
-    if (m) return m.call(o);
-    return {
-        next: function () {
-            if (o && i >= o.length) o = void 0;
-            return { value: o && o[i++], done: !o };
-        }
-    };
-};
 var Node = /** @class */ (function () {
     function Node(x, y, name) {
         if (name === void 0) { name = "Node"; }
         this.x = x;
         this.y = y;
         this.name = name;
-        this.edges = [];
+        this.edges = new Map();
+        this.visited = false;
     }
     Node.prototype.addEdge = function (edge) {
-        if (edge.node1 == this || edge.node2 == this) {
-            this.edges.push(edge);
-        }
-        else {
-            console.warn("Cannot add " + edge + " to " + this);
-        }
+        var neighbor = (edge.node1 == this ? edge.node2 : edge.node1);
+        this.edges.set(neighbor, edge);
+    };
+    Node.prototype.neighbors = function () {
+        return new Set(this.edges.keys());
     };
     Node.prototype.hasNeighbor = function (node) {
-        var e_1, _a;
-        try {
-            for (var _b = __values(this.edges), _c = _b.next(); !_c.done; _c = _b.next()) {
-                var edge = _c.value;
-                if (edge.node1 == node || edge.node2 == node) {
-                    return true;
-                }
-            }
-        }
-        catch (e_1_1) { e_1 = { error: e_1_1 }; }
-        finally {
-            try {
-                if (_c && !_c.done && (_a = _b.return)) _a.call(_b);
-            }
-            finally { if (e_1) throw e_1.error; }
-        }
-        return false;
+        return this.edges.has(node);
     };
     Node.prototype.toString = function () {
-        return this.name + " (x:" + this.x + ", y:" + this.y + ", neighbors: " + this.edges.length + ")";
+        return this.name + " (x:" + this.x + ", y:" + this.y + ", visited: " + this.visited + ", neighbors: " + this.edges.size + ")";
     };
     return Node;
 }());
@@ -231,6 +227,7 @@ var Edge = /** @class */ (function () {
         }
         this.node1 = node1;
         this.node2 = node2;
+        this.visited = false;
     }
     Object.defineProperty(Edge.prototype, "distance", {
         get: function () {
@@ -241,7 +238,7 @@ var Edge = /** @class */ (function () {
         configurable: true
     });
     Edge.prototype.toString = function () {
-        return "Edge (" + this.node1.name + " - " + this.node2.name + ", dist: " + this.distance + ")";
+        return "Edge (" + this.node1.name + " - " + this.node2.name + ", visited: " + this.visited + ", dist: " + this.distance + ")";
     };
     return Edge;
 }());
@@ -258,10 +255,10 @@ var Graph = /** @class */ (function () {
     }
     Graph.prototype.addEdge = function (edge) {
         if (!this.nodes.has(edge.node1) || !this.nodes.has(edge.node2)) {
-            throw ("Ignoring unrecognized node: " + edge.toString());
+            throw ("Ignoring unrecognized node: " + edge);
         }
         if (!edge.node1 || !edge.node2 || edge.node1 == edge.node2) {
-            console.warn("Ignoring invalid edge: " + edge.toString() + ".");
+            console.warn("Ignoring invalid edge: " + edge + ".");
             return;
         }
         if (edge.node1.hasNeighbor(edge.node2)) {
@@ -271,15 +268,20 @@ var Graph = /** @class */ (function () {
         this.edges.push(edge);
         edge.node1.addEdge(edge);
         edge.node2.addEdge(edge);
-        console.log("Added: " + edge.toString());
+    };
+    Graph.prototype.visit = function (from, to) {
+        console.log("Visiting " + from + " -> " + to);
+        var edge = from.edges.get(to);
+        if (!edge) {
+            console.warn("Nodes are not neighbors: " + from + ", " + to);
+            return false;
+        }
+        from.visited = to.visited = edge.visited = true;
+        return true;
     };
     Graph.prototype.toString = function () {
-        var nodesStr = Array.from(this.nodes)
-            .map(function (n) { return n.toString(); })
-            .join("\n\t");
-        var edgesStr = this.edges
-            .map(function (e) { return e.toString(); })
-            .join("\n\t");
+        var nodesStr = Array.from(this.nodes).join("\n\t");
+        var edgesStr = this.edges.join("\n\t");
         return "Graph:\n\t" + nodesStr + "\n\t" + edgesStr;
     };
     return Graph;
@@ -322,23 +324,33 @@ module.exports = "<div style=\"text-align:center\">\n  <h1>{{ title }}</h1>\n\n 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AppComponent", function() { return AppComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
 
 var AppComponent = /** @class */ (function () {
-    function AppComponent() {
+    function AppComponent(router) {
+        this.router = router;
         this.title = 'vis';
     }
+    AppComponent.prototype.ngOnInit = function () {
+        this.router.navigateByUrl("/algorithms");
+    };
     AppComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             selector: 'app-root',
             template: __webpack_require__(/*! ./app.component.html */ "./src/app/app.component.html"),
             styles: [__webpack_require__(/*! ./app.component.css */ "./src/app/app.component.css")]
-        })
+        }),
+        __metadata("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]])
     ], AppComponent);
     return AppComponent;
 }());
