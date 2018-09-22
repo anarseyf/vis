@@ -68,10 +68,10 @@ export class Graph {
 
     addEdge(edge: Edge) {
         if (!this.nodes.has(edge.node1) || !this.nodes.has(edge.node2)) {
-            throw(`Ignoring unrecognized node: ${edge.toString()}`);
+            throw(`Ignoring unrecognized node: ${edge}`);
         }
         if (!edge.node1 || !edge.node2 || edge.node1 == edge.node2) {
-            console.warn(`Ignoring invalid edge: ${edge.toString()}.`);
+            console.warn(`Ignoring invalid edge: ${edge}.`);
             return;
         }
         if (edge.node1.hasNeighbor(edge.node2)) {
@@ -82,17 +82,11 @@ export class Graph {
         this.edges.push(edge);
         edge.node1.addEdge(edge);
         edge.node2.addEdge(edge);
-
-        // console.log(`Added: ${edge.toString()}`)
     }
 
     toString() {
-        const nodesStr = Array.from(this.nodes)
-            .map(n => n.toString())
-            .join("\n\t");
-        const edgesStr = this.edges
-            .map(e => e.toString())
-            .join("\n\t");
+        const nodesStr = Array.from(this.nodes).join("\n\t");
+        const edgesStr = this.edges.join("\n\t");
 
         return `Graph:\n\t${nodesStr}\n\t${edgesStr}`;
     }

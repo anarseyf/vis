@@ -1,6 +1,7 @@
 import {AfterContentInit, Component, OnInit} from '@angular/core';
 import * as d3 from "d3";
 import { Node, Edge, Graph } from "./graph";
+import { DijkstraService } from "./dijkstra.service";
 
 @Component({
     selector: 'app-algorithms',
@@ -59,7 +60,7 @@ export class AlgorithmsComponent implements OnInit, AfterContentInit {
             setTimeout(this.addRandomEdges.bind(this, remaining - 1), 10);
         }
         else {
-            console.log(this.graph.toString());
+            console.log(`${this.graph}`);
         }
     }
 
