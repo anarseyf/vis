@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fced0655-4792-4e01-a075-743cbb6cadb9" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/app/algorithms/graph.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/algorithms/algorithms.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/algorithms/algorithms.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/algorithms/graph.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/algorithms/graph.ts" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/dist/" />
@@ -61,7 +61,7 @@
           <entry key="dummy" value="2" />
           <entry key="html" value="211" />
           <entry key="json" value="26" />
-          <entry key="ts" value="2668" />
+          <entry key="ts" value="3619" />
           <entry key="txt" value="53" />
         </counts>
       </usages-collector>
@@ -71,7 +71,7 @@
           <entry key="HTML" value="211" />
           <entry key="JSON" value="26" />
           <entry key="PLAIN_TEXT" value="55" />
-          <entry key="TypeScript" value="2668" />
+          <entry key="TypeScript" value="3619" />
         </counts>
       </usages-collector>
     </session>
@@ -96,8 +96,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/app/algorithms/graph.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="369">
-              <caret line="27" column="16" lean-forward="true" selection-start-line="27" selection-start-column="16" selection-end-line="27" selection-end-column="16" />
+            <state relative-caret-position="233">
+              <caret line="55" column="5" lean-forward="true" selection-start-line="55" selection-start-column="5" selection-end-line="55" selection-end-column="5" />
             </state>
           </provider>
         </entry>
@@ -105,8 +105,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/app/algorithms/algorithms.component.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="95">
-              <caret line="51" column="25" selection-start-line="51" selection-start-column="25" selection-end-line="51" selection-end-column="25" />
+            <state relative-caret-position="262">
+              <caret line="58" column="26" selection-start-line="58" selection-start-column="26" selection-end-line="58" selection-end-column="26" />
               <folding>
                 <element signature="e#0#66#0" expanded="true" />
               </folding>
@@ -131,6 +131,7 @@
       <find>4</find>
       <find>quote</find>
       <find>this.nodes</find>
+      <find>foreach</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -315,7 +316,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="13346000" />
+    <option name="totallyTimeSpent" value="15746000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -330,15 +331,14 @@
     <frame x="0" y="23" width="1440" height="877" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="npm" side_tool="true" />
-      <window_info id="Favorites" sideWeight="0.50161815" side_tool="true" weight="0.24242425" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49936306" visible="true" weight="0.24242425" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49936306" visible="true" weight="0.24242425" />
       <window_info id="Structure" order="1" sideWeight="0.50063694" side_tool="true" weight="0.24242425" />
-      <window_info anchor="bottom" id="Messages" weight="0.3299363" />
-      <window_info anchor="bottom" id="TODO" order="0" weight="0.3299363" />
-      <window_info anchor="bottom" id="TypeScript" order="1" weight="0.3299363" />
+      <window_info id="npm" order="2" side_tool="true" />
+      <window_info id="Favorites" order="3" sideWeight="0.50161815" side_tool="true" weight="0.24242425" />
+      <window_info anchor="bottom" id="TODO" order="0" show_stripe_button="false" weight="0.3299363" />
+      <window_info anchor="bottom" id="TypeScript" order="1" show_stripe_button="false" weight="0.3299363" />
       <window_info anchor="bottom" id="Docker" order="2" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Version Control" order="3" weight="0.3299363" />
+      <window_info anchor="bottom" id="Version Control" order="3" show_stripe_button="false" weight="0.3299363" />
       <window_info anchor="bottom" id="Event Log" order="4" sideWeight="0.5003524" side_tool="true" weight="0.3299363" />
       <window_info anchor="bottom" id="Message" order="5" />
       <window_info anchor="bottom" id="Find" order="6" />
@@ -347,6 +347,7 @@
       <window_info anchor="bottom" id="Debug" order="9" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="10" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="11" weight="0.4" />
+      <window_info anchor="bottom" id="Messages" order="12" show_stripe_button="false" weight="0.3299363" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -480,6 +481,13 @@
     <entry file="file://$PROJECT_DIR$/src/app/app.component.css">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/algorithms/algorithms.component.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="10" selection-start-line="7" selection-start-column="10" selection-end-line="7" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/app/app.component.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="85">
@@ -487,13 +495,6 @@
           <folding>
             <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/algorithms/algorithms.component.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" column="10" selection-start-line="7" selection-start-column="10" selection-end-line="7" selection-end-column="10" />
         </state>
       </provider>
     </entry>
@@ -506,15 +507,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/app/algorithms/graph.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="369">
-          <caret line="27" column="16" lean-forward="true" selection-start-line="27" selection-start-column="16" selection-end-line="27" selection-end-column="16" />
+        <state relative-caret-position="233">
+          <caret line="55" column="5" lean-forward="true" selection-start-line="55" selection-start-column="5" selection-end-line="55" selection-end-column="5" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/app/algorithms/algorithms.component.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="95">
-          <caret line="51" column="25" selection-start-line="51" selection-start-column="25" selection-end-line="51" selection-end-column="25" />
+        <state relative-caret-position="262">
+          <caret line="58" column="26" selection-start-line="58" selection-start-column="26" selection-end-line="58" selection-end-column="26" />
           <folding>
             <element signature="e#0#66#0" expanded="true" />
           </folding>

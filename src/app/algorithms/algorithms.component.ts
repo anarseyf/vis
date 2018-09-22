@@ -12,7 +12,6 @@ export class AlgorithmsComponent implements OnInit, AfterContentInit {
 
     graph: Graph;
     nodeCount: number = 10;
-    edgeCount: number = 0;
     width: number = 600;
     height: number = 400;
 
@@ -24,10 +23,11 @@ export class AlgorithmsComponent implements OnInit, AfterContentInit {
                 return new Node(this.randomNumber(this.width),
                                 this.randomNumber(this.height),
                                 `Node ${i}`);
-            });
+            })
+            .sort((a, b) => a.x - b.x);
 
         const maxEdges = this.nodeCount * (this.nodeCount - 1) / 2;
-        this.edgeCount = this.randomNumber(maxEdges);
+        const edgeCount = this.randomNumber(maxEdges);
         
         let edges = [
             new Edge(nodes[0], nodes[1]),
@@ -36,20 +36,18 @@ export class AlgorithmsComponent implements OnInit, AfterContentInit {
         ];
 
         this.graph = new Graph(nodes, edges);
-
-        console.log(nodes);
-    }
-
-    randomNumber(max: number) {
-        return Math.floor(Math.random() * max);
     }
 
     ngOnInit() {
     }
 
     ngAfterContentInit() {
-        console.log(this.graph);
+        console.log(this.graph.toString());
         this.drawGraph();
+    }
+
+    randomNumber(max: number) {
+        return Math.round(Math.random() * max);
     }
 
     drawGraph() {
@@ -58,7 +56,8 @@ export class AlgorithmsComponent implements OnInit, AfterContentInit {
     }
 
     drawNodes() {
-        let nodes = this.graph.nodes;
+        let nodes = Array.from(this.graph.nodes);
+        console.log(nodes);
         let svg = d3.select("#svg");
 
         let circles = svg.selectAll("circle")
