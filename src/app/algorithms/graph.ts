@@ -18,7 +18,7 @@ export class Node {
         }
     }
     toString() {
-        return `${this.name} (${this.x}, ${this.y})`;
+        return `${this.name} (x:${this.x}, y:${this.y}, neighbors: ${this.edges.size})`;
     }
 }
 
@@ -27,6 +27,9 @@ export class Edge {
     node2: Node;
 
     constructor(node1: Node, node2: Node) {
+        if (!node1 || !node2) {
+            throw(`Invalid Edge constructor arguments`);
+        }
         this.node1 = node1;
         this.node2 = node2;
     }
@@ -57,15 +60,17 @@ export class Graph {
 
     addEdge(edge: Edge) {
         if (!this.nodes.has(edge.node1) || !this.nodes.has(edge.node2)) {
-            throw(`Cannot add ${edge.toString()} to graph`);
+            throw(`Ignoring unrecognized node: ${edge.toString()}`);
         }
         if (!edge.node1 || !edge.node2 || edge.node1 == edge.node2) {
-            throw(`Invalid edge: ${edge.toString()}`)
+            console.warn(`Ignoring invalid edge: ${edge.toString()}.`);
         }
 
         this.edges.push(edge);
         edge.node1.addEdge(edge);
         edge.node2.addEdge(edge);
+
+        console.log(`Added: ${edge.toString()}`)
     }
 
     toString() {

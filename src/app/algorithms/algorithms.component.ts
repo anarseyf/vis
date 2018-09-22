@@ -11,7 +11,7 @@ import { Node, Edge, Graph } from "./graph";
 export class AlgorithmsComponent implements OnInit, AfterContentInit {
 
     graph: Graph;
-    nodeCount: number = 10;
+    nodeCount: number = 20;
     width: number = 600;
     height: number = 400;
 
@@ -26,28 +26,41 @@ export class AlgorithmsComponent implements OnInit, AfterContentInit {
             })
             .sort((a, b) => a.x - b.x);
 
-        const maxEdges = this.nodeCount * (this.nodeCount - 1) / 2;
+        const maxEdges = this.nodeCount * 2;
         const edgeCount = this.randomNumber(maxEdges);
         
-        let edges = [
-            new Edge(nodes[0], nodes[1]),
-            new Edge(nodes[0], nodes[2]),
-            new Edge(nodes[1], nodes[3]),
-        ];
-
-        this.graph = new Graph(nodes, edges);
+        this.graph = new Graph(nodes);
+        this.addRandomEdges(edgeCount);
     }
 
     ngOnInit() {
     }
 
     ngAfterContentInit() {
-        console.log(this.graph.toString());
         this.drawGraph();
     }
 
     randomNumber(max: number) {
         return Math.round(Math.random() * max);
+    }
+
+    addRandomEdges(remaining: number) {
+
+        let max = this.graph.nodes.size - 1;
+        let i1 = this.randomNumber(max),
+            i2 = this.randomNumber(max);
+        let nodes = Array.from(this.graph.nodes);
+        let edge = new Edge(nodes[i1], nodes[i2]);
+        this.graph.addEdge(edge);
+
+        this.drawGraph();
+
+        if (remaining > 0) {
+            setTimeout(this.addRandomEdges.bind(this, remaining - 1), 100);
+        }
+        else {
+            console.log(this.graph.toString());
+        }
     }
 
     drawGraph() {
@@ -57,7 +70,6 @@ export class AlgorithmsComponent implements OnInit, AfterContentInit {
 
     drawNodes() {
         let nodes = Array.from(this.graph.nodes);
-        console.log(nodes);
         let svg = d3.select("#svg");
 
         let circles = svg.selectAll("circle")
@@ -75,6 +87,8 @@ export class AlgorithmsComponent implements OnInit, AfterContentInit {
             .attr("stroke", "gray")
             .attr("stroke-width", 1)
             .attr("fill", "lightgray");
+
+        circles.exit().remove();
     }
 
     drawEdges() {
@@ -92,5 +106,6 @@ export class AlgorithmsComponent implements OnInit, AfterContentInit {
             .attr("y2", function (edge: Edge) { return edge.node2.y; })
             .attr("stroke", "gray");
 
+        lines.exit().remove();
     }
 }
