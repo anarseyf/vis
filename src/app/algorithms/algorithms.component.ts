@@ -83,7 +83,7 @@ export class AlgorithmsComponent implements OnInit, AfterContentInit {
             .attr("cy", function (d) {
                 return d.y;
             })
-            .attr("r", 4)
+            .attr("r", 6)
             .attr("stroke", "gray")
             .attr("stroke-width", 1)
             .attr("fill", "lightgray");

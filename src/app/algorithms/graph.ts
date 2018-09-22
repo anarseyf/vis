@@ -2,23 +2,31 @@ export class Node {
     x: number;
     y: number;
     name: string;
-    edges: Set<Edge>;
+    edges: Edge[];
     constructor(x: number, y: number, name = "Node") {
         this.x = x;
         this.y = y;
         this.name = name;
-        this.edges = new Set();
+        this.edges = [];
     }
     addEdge(edge: Edge) {
         if (edge.node1 == this || edge.node2 == this) {
-            this.edges.add(edge);
+            this.edges.push(edge);
         }
         else {
             console.warn(`Cannot add ${edge} to ${this}`);
         }
     }
+    hasNeighbor(node: Node) {
+        for (const edge of this.edges) {
+            if (edge.node1 == node || edge.node2 == node) {
+                return true;
+            }
+        }
+        return false;
+    }
     toString() {
-        return `${this.name} (x:${this.x}, y:${this.y}, neighbors: ${this.edges.size})`;
+        return `${this.name} (x:${this.x}, y:${this.y}, neighbors: ${this.edges.length})`;
     }
 }
 
@@ -64,6 +72,11 @@ export class Graph {
         }
         if (!edge.node1 || !edge.node2 || edge.node1 == edge.node2) {
             console.warn(`Ignoring invalid edge: ${edge.toString()}.`);
+            return;
+        }
+        if (edge.node1.hasNeighbor(edge.node2)) {
+            console.warn(`Ignoring already-existing edge: ${edge}`);
+            return;
         }
 
         this.edges.push(edge);
