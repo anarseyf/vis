@@ -20,14 +20,14 @@ export class AlgorithmsComponent implements OnInit, AfterContentInit {
             .fill(0)
             .map(() => {
                 return {
-                    x: AlgorithmsComponent.randomCoordinate(this.width),
-                    y: AlgorithmsComponent.randomCoordinate(this.height) }
+                    x: this.randomCoordinate(this.width),
+                    y: this.randomCoordinate(this.height) }
             });
 
         console.log(this.data);
     }
 
-    static randomCoordinate(max: number) {
+    randomCoordinate(max: number) {
         return Math.random() * max;
     }
 
@@ -50,7 +50,9 @@ export class AlgorithmsComponent implements OnInit, AfterContentInit {
                 return d.y;
             })
             .attr("r", 4)
-            .attr("fill", "darkslategray");
+            .attr("stroke", "gray")
+            .attr("stroke-width", 1)
+            .attr("fill", "lightgray");
     }
 
 }

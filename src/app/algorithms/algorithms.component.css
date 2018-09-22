@@ -2,3 +2,8 @@
 svg {
     border: 1px solid lightgray;
 }
+
+circle {
+    stroke: gray;
+    stroke-width: 2px;
+}
