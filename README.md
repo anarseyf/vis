@@ -12,4 +12,4 @@ Visualizations. SVG, Canvas, WebGL, etc.
 ```
 
 Deployed at
-https://anarseyf.github.io/vis/algorithms
+https://anarseyf.github.io/vis/
