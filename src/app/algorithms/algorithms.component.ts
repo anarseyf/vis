@@ -12,27 +12,13 @@ import { DijkstraService } from "./dijkstra.service";
 export class AlgorithmsComponent implements OnInit, AfterContentInit {
 
     graph: Graph;
-    nodeCount: number = 20;
+    nodeCount: number = 50;
     width: number = 600;
     height: number = 400;
+    circleRadius: number = 6;
 
-    constructor() {
-
-        let nodes = new Array(this.nodeCount)
-            .fill(0)
-            .map((v, i) => {
-                return new Node(this.randomNumber(this.width),
-                                this.randomNumber(this.height),
-                                `Node ${i}`);
-            })
-            .sort((a, b) => a.x - b.x);
-
-        const maxEdges = this.nodeCount * 2;
-        const edgeCount = this.randomNumber(maxEdges);
-        
-        this.graph = new Graph(nodes);
-        this.addRandomEdges(edgeCount);
-        this.visitRandomNodes(100);
+    constructor(private dijkstraService : DijkstraService) {
+        this.reset();
     }
 
     ngOnInit() {
@@ -46,10 +32,12 @@ export class AlgorithmsComponent implements OnInit, AfterContentInit {
         return Math.round(Math.random() * max);
     }
 
-    addRandomEdges(num: number) {
+    addRandomEdges() {
+        const maxEdges = this.nodeCount * 10;
+        const edgeCount = this.randomNumber(maxEdges);
 
         let max = this.graph.nodes.size - 1;
-        for (let i = 0; i < num; i++) {
+        for (let i = 0; i < edgeCount; i++) {
             let i1 = this.randomNumber(max),
                 i2 = this.randomNumber(max);
             let nodes = Array.from(this.graph.nodes);
@@ -61,23 +49,61 @@ export class AlgorithmsComponent implements OnInit, AfterContentInit {
         console.log(`${this.graph}`);
     }
 
-    visitRandomNodes(remaining: number) {
+    visitRandomNodes() {
 
-        let max = this.graph.nodes.size - 1;
         let nodes = Array.from(this.graph.nodes);
-        let from = nodes[ this.randomNumber(max) ];
-        let neighbors = Array.from(from.neighbors());
-        let to = neighbors[ this.randomNumber(neighbors.length) ];
-        let success = this.graph.visit(from, to);
+        let count = nodes.length * 2;
+        for (let i = 0; i < count; i++) {
+            let from = nodes[this.randomNumber(nodes.length - 1)];
+            let neighbors = Array.from(from.neighbors());
+            let to = neighbors[this.randomNumber(neighbors.length - 1)];
+            let success = this.graph.visit(from, to);
+        }
 
         this.drawGraph();
+        console.log(`${this.graph}`);
+    }
 
-        if (remaining > 0) {
-            setTimeout(this.visitRandomNodes.bind(this, remaining - 1), success ? 100 : 0);
+    getRandomShortestPath() {
+        let nodes = [...this.graph.nodes];
+        let source = nodes[0];
+        let target = nodes[nodes.length - 1];
+        source.special = target.special = true;
+        let path = this.dijkstraService.shortestPath(this.graph, source, target);
+        console.log(`Path ${ source } -> ${ target }:\n\t${ path.join("\n\t") }`);
+        this.visitPath(path);
+    }
+
+    visitPath(path: Node[]) {
+        for (let i = 0; i < path.length - 1; i++) {
+            let from = path[i], to = path[i + 1];
+            this.graph.visit(from, to);
         }
-        else {
-            console.log(`Visited random nodes: ${this.graph}`);
-        }
+    }
+
+    reset() {
+        this.resetSVG();
+
+        let margin = this.circleRadius * 4;
+        let nodes = new Array(this.nodeCount)
+            .fill(0)
+            .map((v, i) => {
+                return new Node(this.randomNumber(this.width - margin) + margin/2,
+                                this.randomNumber(this.height - margin) + margin/2,
+                                `Node ${i}`);
+            })
+            .sort((a, b) => a.x - b.x);
+        this.graph = new Graph(nodes);
+
+        this.addRandomEdges();
+        // this.visitRandomNodes();
+        this.getRandomShortestPath();
+
+        this.drawGraph();
+    }
+
+    resetSVG() {
+        d3.select("#svg").html("");
     }
 
     drawGraph() {
@@ -100,13 +126,13 @@ export class AlgorithmsComponent implements OnInit, AfterContentInit {
             .attr("cy", function (d) {
                 return d.y;
             })
-            .attr("r", 6)
+            .attr("r", this.circleRadius)
             .attr("stroke", "gray")
-            .attr("stroke-width", 1);
-
-        circles
+            .attr("stroke-width", function (d: Node) {
+                return d.special ? 2 : 1;
+            })
             .attr("fill", function (d: Node) {
-                return d.visited ? 'darkgray' : 'lightgray';
+                return d.special ? "red" : (d.visited ? 'darkgray' : 'lightgray');
             });
 
         circles.exit().remove();
@@ -124,9 +150,7 @@ export class AlgorithmsComponent implements OnInit, AfterContentInit {
             .attr("x1", function (edge: Edge) { return edge.node1.x; })
             .attr("x2", function (edge: Edge) { return edge.node2.x; })
             .attr("y1", function (edge: Edge) { return edge.node1.y; })
-            .attr("y2", function (edge: Edge) { return edge.node2.y; });
-
-        lines
+            .attr("y2", function (edge: Edge) { return edge.node2.y; })
             .attr("stroke", function(d: Edge) {
                 return d.visited ? 'darkgray' : 'lightgray';
             })

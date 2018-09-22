@@ -3,6 +3,7 @@ export class Node {
     y: number;
     name: string;
     visited: boolean;
+    special: boolean;
     edges: Map<Node, Edge>;
 
     constructor(x: number, y: number, name = "Node") {
@@ -11,6 +12,7 @@ export class Node {
         this.name = name;
         this.edges = new Map();
         this.visited = false;
+        this.special = false;
     }
     addEdge(edge: Edge) {
         const neighbor = (edge.node1 == this ? edge.node2 : edge.node1);
@@ -85,11 +87,11 @@ export class Graph {
 
     visit(from: Node, to: Node) : boolean {
 
-        console.log(`Visiting ${from} -> ${to}`);
+        // console.log(`Visiting ${from} -> ${to}`);
 
         let edge = from.edges.get(to);
         if (!edge) {
-            console.warn(`Nodes are not neighbors: ${from}, ${to}`);
+            // console.warn(`Nodes are not neighbors: ${from}, ${to}`);
             return false;
         }
 
