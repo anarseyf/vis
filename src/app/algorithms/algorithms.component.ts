@@ -32,6 +32,7 @@ export class AlgorithmsComponent implements OnInit, AfterContentInit {
         
         this.graph = new Graph(nodes);
         this.addRandomEdges(edgeCount);
+        this.visitRandomNodes(100);
     }
 
     ngOnInit() {
@@ -45,22 +46,37 @@ export class AlgorithmsComponent implements OnInit, AfterContentInit {
         return Math.round(Math.random() * max);
     }
 
-    addRandomEdges(remaining: number) {
+    addRandomEdges(num: number) {
 
         let max = this.graph.nodes.size - 1;
-        let i1 = this.randomNumber(max),
-            i2 = this.randomNumber(max);
+        for (let i = 0; i < num; i++) {
+            let i1 = this.randomNumber(max),
+                i2 = this.randomNumber(max);
+            let nodes = Array.from(this.graph.nodes);
+            let edge = new Edge(nodes[i1], nodes[i2]);
+            this.graph.addEdge(edge);
+        }
+
+        this.drawGraph();
+        console.log(`${this.graph}`);
+    }
+
+    visitRandomNodes(remaining: number) {
+
+        let max = this.graph.nodes.size - 1;
         let nodes = Array.from(this.graph.nodes);
-        let edge = new Edge(nodes[i1], nodes[i2]);
-        this.graph.addEdge(edge);
+        let from = nodes[ this.randomNumber(max) ];
+        let neighbors = Array.from(from.neighbors());
+        let to = neighbors[ this.randomNumber(neighbors.length) ];
+        let success = this.graph.visit(from, to);
 
         this.drawGraph();
 
         if (remaining > 0) {
-            setTimeout(this.addRandomEdges.bind(this, remaining - 1), 10);
+            setTimeout(this.visitRandomNodes.bind(this, remaining - 1), success ? 100 : 0);
         }
         else {
-            console.log(`${this.graph}`);
+            console.log(`Visited random nodes: ${this.graph}`);
         }
     }
 
@@ -86,8 +102,12 @@ export class AlgorithmsComponent implements OnInit, AfterContentInit {
             })
             .attr("r", 6)
             .attr("stroke", "gray")
-            .attr("stroke-width", 1)
-            .attr("fill", "lightgray");
+            .attr("stroke-width", 1);
+
+        circles
+            .attr("fill", function (d: Node) {
+                return d.visited ? 'darkgray' : 'lightgray';
+            });
 
         circles.exit().remove();
     }
@@ -104,8 +124,15 @@ export class AlgorithmsComponent implements OnInit, AfterContentInit {
             .attr("x1", function (edge: Edge) { return edge.node1.x; })
             .attr("x2", function (edge: Edge) { return edge.node2.x; })
             .attr("y1", function (edge: Edge) { return edge.node1.y; })
-            .attr("y2", function (edge: Edge) { return edge.node2.y; })
-            .attr("stroke", "gray");
+            .attr("y2", function (edge: Edge) { return edge.node2.y; });
+
+        lines
+            .attr("stroke", function(d: Edge) {
+                return d.visited ? 'darkgray' : 'lightgray';
+            })
+            .attr("stroke-width", function(d: Edge) {
+                return d.visited ? 3 : 1;
+            });
 
         lines.exit().remove();
     }

@@ -2,37 +2,35 @@ export class Node {
     x: number;
     y: number;
     name: string;
-    edges: Edge[];
+    visited: boolean;
+    edges: Map<Node, Edge>;
+
     constructor(x: number, y: number, name = "Node") {
         this.x = x;
         this.y = y;
         this.name = name;
-        this.edges = [];
+        this.edges = new Map();
+        this.visited = false;
     }
     addEdge(edge: Edge) {
-        if (edge.node1 == this || edge.node2 == this) {
-            this.edges.push(edge);
-        }
-        else {
-            console.warn(`Cannot add ${edge} to ${this}`);
-        }
+        const neighbor = (edge.node1 == this ? edge.node2 : edge.node1);
+        this.edges.set(neighbor, edge);
+    }
+    neighbors() : Set<Node> {
+        return new Set(this.edges.keys());
     }
     hasNeighbor(node: Node) {
-        for (const edge of this.edges) {
-            if (edge.node1 == node || edge.node2 == node) {
-                return true;
-            }
-        }
-        return false;
+        return this.edges.has(node);
     }
     toString() {
-        return `${this.name} (x:${this.x}, y:${this.y}, neighbors: ${this.edges.length})`;
+        return `${this.name} (x:${this.x}, y:${this.y}, visited: ${this.visited}, neighbors: ${this.edges.size})`;
     }
 }
 
 export class Edge {
     node1: Node;
     node2: Node;
+    visited: boolean;
 
     constructor(node1: Node, node2: Node) {
         if (!node1 || !node2) {
@@ -40,6 +38,7 @@ export class Edge {
         }
         this.node1 = node1;
         this.node2 = node2;
+        this.visited = false;
     }
 
     get distance() {
@@ -50,7 +49,7 @@ export class Edge {
     }
 
     toString() {
-        return `Edge (${this.node1.name} - ${this.node2.name}, dist: ${this.distance})`;
+        return `Edge (${this.node1.name} - ${this.node2.name}, visited: ${this.visited}, dist: ${this.distance})`;
     }
 }
 
@@ -82,6 +81,20 @@ export class Graph {
         this.edges.push(edge);
         edge.node1.addEdge(edge);
         edge.node2.addEdge(edge);
+    }
+
+    visit(from: Node, to: Node) : boolean {
+
+        console.log(`Visiting ${from} -> ${to}`);
+
+        let edge = from.edges.get(to);
+        if (!edge) {
+            console.warn(`Nodes are not neighbors: ${from}, ${to}`);
+            return false;
+        }
+
+        from.visited = to.visited = edge.visited = true;
+        return true;
     }
 
     toString() {
