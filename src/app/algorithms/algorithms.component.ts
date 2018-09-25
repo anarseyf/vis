@@ -12,10 +12,11 @@ import { DijkstraService } from "./dijkstra.service";
 export class AlgorithmsComponent implements OnInit, AfterContentInit {
 
     graph: Graph;
-    nodeCount: number = 50;
+    nodeCount: number = 30;
     width: number = 600;
     height: number = 400;
     circleRadius: number = 6;
+    delay: number = 100;
 
     constructor(private dijkstraService : DijkstraService) {
         this.reset();
@@ -64,14 +65,37 @@ export class AlgorithmsComponent implements OnInit, AfterContentInit {
         console.log(`${this.graph}`);
     }
 
-    getRandomShortestPath() {
+    getRandomStartEndNodes() {
         let nodes = [...this.graph.nodes];
         let source = nodes[0];
         let target = nodes[nodes.length - 1];
-        source.special = target.special = true;
-        let path = this.dijkstraService.shortestPath(this.graph, source, target);
-        console.log(`Path ${ source } -> ${ target }:\n\t${ path.join("\n\t") }`);
-        this.visitPath(path);
+        return [source, target];
+    }
+
+    runDijkstra(source: Node, target: Node) {
+
+        let iterator = this.dijkstraService.shortestPath(this.graph, source, target);
+
+        let callback = function (result) {
+            if (result.done) {
+                let path = result.value;
+                console.log(`Done: Path ${ source } -> ${ target }:\n\t${ path.join("\n\t") }`);
+                this.visitPath(path);
+            }
+            this.drawGraph();
+        }.bind(this);
+
+        this.executeAfterTimeout(iterator, callback);
+    }
+
+    executeAfterTimeout(iterator, callback) {
+        setTimeout(function () {
+            let result = iterator.next();
+            callback(result);
+            if (!result.done) {
+                this.executeAfterTimeout(iterator, callback);
+            }
+        }.bind(this), this.delay);
     }
 
     visitPath(path: Node[]) {
@@ -90,16 +114,16 @@ export class AlgorithmsComponent implements OnInit, AfterContentInit {
             .map((v, i) => {
                 return new Node(this.randomNumber(this.width - margin) + margin/2,
                                 this.randomNumber(this.height - margin) + margin/2,
-                                `Node ${i}`);
+                                `N-${i}`);
             })
             .sort((a, b) => a.x - b.x);
         this.graph = new Graph(nodes);
 
         this.addRandomEdges();
         // this.visitRandomNodes();
-        this.getRandomShortestPath();
-
-        this.drawGraph();
+        let [ source, target ] = this.getRandomStartEndNodes();
+        source.special = target.special = true;
+        this.runDijkstra(source, target);
     }
 
     resetSVG() {

@@ -8,7 +8,7 @@ export class DijkstraService {
 
     constructor() { }
 
-    shortestPath(graph: Graph, source: Node, target: Node): Node[] {
+    * shortestPath(graph: Graph, source: Node, target: Node) {
 
         let q = new PriorityQueue();
         let dist: Map<Node, number> = new Map();
@@ -34,6 +34,7 @@ export class DijkstraService {
                 }
             }
             console.log(`${q}`);
+            yield;
         }
 
         console.log(`DONE: ${q}`);
@@ -112,7 +113,7 @@ export class PriorityQueue {
     }
 
     toString() {
-        let queueStr = this.queue.join("\n\t");
+        let queueStr = this.queue.join("; ");
         return `Queue (size: ${ this.queue.length }):\n\t${ queueStr }`;
     }
 }
