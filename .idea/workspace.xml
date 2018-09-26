@@ -3,8 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="fced0655-4792-4e01-a075-743cbb6cadb9" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/src/app/algorithms/algorithms.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/algorithms/algorithms.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/algorithms/dijkstra.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/algorithms/dijkstra.service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/algorithms/graph.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/algorithms/graph.ts" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/dist/" />
@@ -67,8 +65,8 @@
           <entry key="html" value="296" />
           <entry key="json" value="32" />
           <entry key="md" value="150" />
-          <entry key="ts" value="10908" />
-          <entry key="txt" value="184" />
+          <entry key="ts" value="10913" />
+          <entry key="txt" value="208" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
@@ -77,8 +75,8 @@
           <entry key="HTML" value="296" />
           <entry key="JSON" value="26" />
           <entry key="Markdown" value="45" />
-          <entry key="PLAIN_TEXT" value="298" />
-          <entry key="TypeScript" value="10908" />
+          <entry key="PLAIN_TEXT" value="322" />
+          <entry key="TypeScript" value="10913" />
           <entry key="tsconfig" value="6" />
         </counts>
       </usages-collector>
@@ -119,8 +117,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/app/algorithms/algorithms.component.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="610">
-              <caret line="179" column="18" lean-forward="true" selection-start-line="169" selection-start-column="23" selection-end-line="179" selection-end-column="18" />
+            <state relative-caret-position="260">
+              <caret line="111" column="16" lean-forward="true" selection-start-line="111" selection-start-column="16" selection-end-line="111" selection-end-column="16" />
               <folding>
                 <element signature="e#0#66#0" expanded="true" />
               </folding>
@@ -172,8 +170,8 @@
       <find>radius</find>
       <find>drawEdges</find>
       <find>visit</find>
-      <find>executeAfterDelay</find>
       <find>drawGraph</find>
+      <find>executeAfterDelay</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -339,7 +337,7 @@
       <updated>1537490423494</updated>
       <workItem from="1537490426210" duration="13346000" />
       <workItem from="1537641513546" duration="13250000" />
-      <workItem from="1537719680839" duration="13821000" />
+      <workItem from="1537719680839" duration="14333000" />
     </task>
     <task id="LOCAL-00001" summary="App + router">
       <created>1537548367509</created>
@@ -418,11 +416,18 @@
       <option name="project" value="LOCAL" />
       <updated>1537843986925</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Animated path traversal">
+      <created>1538001479388</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1538001479388</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="46271000" />
+    <option name="totallyTimeSpent" value="46783000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -477,7 +482,8 @@
     <MESSAGE value="Visit random nodes" />
     <MESSAGE value="Dijkstra's algorithm" />
     <MESSAGE value="Basic event loop" />
-    <option name="LAST_COMMIT_MESSAGE" value="Basic event loop" />
+    <MESSAGE value="Animated path traversal" />
+    <option name="LAST_COMMIT_MESSAGE" value="Animated path traversal" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/app/app.component.spec.ts">
@@ -626,13 +632,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/algorithms/algorithms.component.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="26" selection-start-line="2" selection-start-column="26" selection-end-line="2" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/app/algorithms/dijkstra.service.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="663">
@@ -650,10 +649,17 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/algorithms/algorithms.component.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="26" selection-start-line="2" selection-start-column="26" selection-end-line="2" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/app/algorithms/algorithms.component.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="610">
-          <caret line="179" column="18" lean-forward="true" selection-start-line="169" selection-start-column="23" selection-end-line="179" selection-end-column="18" />
+        <state relative-caret-position="260">
+          <caret line="111" column="16" lean-forward="true" selection-start-line="111" selection-start-column="16" selection-end-line="111" selection-end-column="16" />
           <folding>
             <element signature="e#0#66#0" expanded="true" />
           </folding>

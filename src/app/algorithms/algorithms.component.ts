@@ -48,6 +48,16 @@ export class AlgorithmsComponent implements OnInit, AfterContentInit {
         this.runDijkstra(this.graph, source, target, doneCallback);
     }
 
+    executeAfterDelay(delay, iterator, callback) {
+        setTimeout(function () {
+            let result = iterator.next();
+            callback(result);
+            if (!result.done) {
+                this.executeAfterDelay(delay, iterator, callback);
+            }
+        }.bind(this), delay);
+    }
+
     ngOnInit() {
     }
 
@@ -95,16 +105,6 @@ export class AlgorithmsComponent implements OnInit, AfterContentInit {
         }.bind(this);
 
         this.executeAfterDelay(0, iterator, callback);
-    }
-
-    executeAfterDelay(delay, iterator, callback) {
-        setTimeout(function () {
-            let result = iterator.next();
-            callback(result);
-            if (!result.done) {
-                this.executeAfterDelay(delay, iterator, callback);
-            }
-        }.bind(this), delay);
     }
 
     visitPath(path: Node[], graph: Graph) {
