@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fced0655-4792-4e01-a075-743cbb6cadb9" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/algorithms/algorithms.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/algorithms/algorithms.component.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/algorithms/dijkstra.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/algorithms/dijkstra.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/algorithms/graph.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/algorithms/graph.ts" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/dist/" />
@@ -67,8 +67,8 @@
           <entry key="html" value="296" />
           <entry key="json" value="32" />
           <entry key="md" value="150" />
-          <entry key="ts" value="9936" />
-          <entry key="txt" value="168" />
+          <entry key="ts" value="10908" />
+          <entry key="txt" value="184" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
@@ -77,8 +77,8 @@
           <entry key="HTML" value="296" />
           <entry key="JSON" value="26" />
           <entry key="Markdown" value="45" />
-          <entry key="PLAIN_TEXT" value="282" />
-          <entry key="TypeScript" value="9936" />
+          <entry key="PLAIN_TEXT" value="298" />
+          <entry key="TypeScript" value="10908" />
           <entry key="tsconfig" value="6" />
         </counts>
       </usages-collector>
@@ -89,15 +89,6 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/app/algorithms/graph.ts">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-821">
-              <caret line="14" column="29" selection-start-line="14" selection-start-column="29" selection-end-line="14" selection-end-column="29" />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/app/algorithms/algorithms.component.html">
           <provider selected="true" editor-type-id="text-editor">
@@ -116,11 +107,20 @@
           </provider>
         </entry>
       </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/app/algorithms/graph.ts">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="324">
+              <caret line="90" column="36" lean-forward="true" selection-start-line="90" selection-start-column="36" selection-end-line="90" selection-end-column="36" />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/app/algorithms/algorithms.component.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="18" column="24" lean-forward="true" selection-start-line="18" selection-start-column="24" selection-end-line="18" selection-end-column="24" />
+            <state relative-caret-position="610">
+              <caret line="179" column="18" lean-forward="true" selection-start-line="169" selection-start-column="23" selection-end-line="179" selection-end-column="18" />
               <folding>
                 <element signature="e#0#66#0" expanded="true" />
               </folding>
@@ -131,8 +131,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/app/algorithms/dijkstra.service.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="10" column="60" selection-start-line="10" selection-start-column="60" selection-end-line="10" selection-end-column="60" />
+            <state relative-caret-position="663">
+              <caret line="39" column="32" selection-start-line="39" selection-start-column="32" selection-end-line="39" selection-end-column="32" />
               <folding>
                 <element signature="e#0#43#0" expanded="true" />
               </folding>
@@ -144,11 +144,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>space</find>
-      <find>4</find>
-      <find>quote</find>
-      <find>this.nodes</find>
-      <find>foreach</find>
       <find>downl</find>
       <find>console.log(this.graph</find>
       <find>d3</find>
@@ -161,8 +156,24 @@
       <find>node</find>
       <find>priority</find>
       <find>getRandomShortestPath</find>
-      <find>node.</find>
       <find>done</find>
+      <find>node.</find>
+      <find>executeAfterTimeout</find>
+      <find>visitr</find>
+      <find>queue:</find>
+      <find>queue</find>
+      <find>visit:</find>
+      <find>log</find>
+      <find>visited =</find>
+      <find>ted:</find>
+      <find>drawgraph</find>
+      <find>after</find>
+      <find>n-</find>
+      <find>radius</find>
+      <find>drawEdges</find>
+      <find>visit</find>
+      <find>executeAfterDelay</find>
+      <find>drawGraph</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -184,9 +195,9 @@
         <option value="$PROJECT_DIR$/src/app/app.component.ts" />
         <option value="$PROJECT_DIR$/src/app/algorithms/algorithms.component.html" />
         <option value="$PROJECT_DIR$/src/app/algorithms/algorithms.component.css" />
-        <option value="$PROJECT_DIR$/src/app/algorithms/graph.ts" />
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/src/app/algorithms/dijkstra.service.ts" />
+        <option value="$PROJECT_DIR$/src/app/algorithms/graph.ts" />
         <option value="$PROJECT_DIR$/src/app/algorithms/algorithms.component.ts" />
       </list>
     </option>
@@ -328,7 +339,7 @@
       <updated>1537490423494</updated>
       <workItem from="1537490426210" duration="13346000" />
       <workItem from="1537641513546" duration="13250000" />
-      <workItem from="1537719680839" duration="6920000" />
+      <workItem from="1537719680839" duration="13821000" />
     </task>
     <task id="LOCAL-00001" summary="App + router">
       <created>1537548367509</created>
@@ -400,11 +411,18 @@
       <option name="project" value="LOCAL" />
       <updated>1537659205067</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Basic event loop">
+      <created>1537843986925</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1537843986925</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="39370000" />
+    <option name="totallyTimeSpent" value="46271000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -419,7 +437,7 @@
     <frame x="0" y="23" width="1440" height="877" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49936306" visible="true" weight="0.22621565" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49936306" visible="true" weight="0.22621565" />
       <window_info id="Structure" order="1" sideWeight="0.50063694" side_tool="true" weight="0.24242425" />
       <window_info id="npm" order="2" side_tool="true" />
       <window_info id="Favorites" order="3" sideWeight="0.50161815" side_tool="true" weight="0.24242425" />
@@ -458,7 +476,8 @@
     <MESSAGE value="toString" />
     <MESSAGE value="Visit random nodes" />
     <MESSAGE value="Dijkstra's algorithm" />
-    <option name="LAST_COMMIT_MESSAGE" value="Dijkstra's algorithm" />
+    <MESSAGE value="Basic event loop" />
+    <option name="LAST_COMMIT_MESSAGE" value="Basic event loop" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/app/app.component.spec.ts">
@@ -607,13 +626,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/app/algorithms/graph.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-821">
-          <caret line="14" column="29" selection-start-line="14" selection-start-column="29" selection-end-line="14" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/app/algorithms/algorithms.component.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="34">
@@ -623,18 +635,25 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/app/algorithms/dijkstra.service.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="10" column="60" selection-start-line="10" selection-start-column="60" selection-end-line="10" selection-end-column="60" />
+        <state relative-caret-position="663">
+          <caret line="39" column="32" selection-start-line="39" selection-start-column="32" selection-end-line="39" selection-end-column="32" />
           <folding>
             <element signature="e#0#43#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/app/algorithms/graph.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="324">
+          <caret line="90" column="36" lean-forward="true" selection-start-line="90" selection-start-column="36" selection-end-line="90" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/app/algorithms/algorithms.component.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="18" column="24" lean-forward="true" selection-start-line="18" selection-start-column="24" selection-end-line="18" selection-end-column="24" />
+        <state relative-caret-position="610">
+          <caret line="179" column="18" lean-forward="true" selection-start-line="169" selection-start-column="23" selection-end-line="179" selection-end-column="18" />
           <folding>
             <element signature="e#0#66#0" expanded="true" />
           </folding>
