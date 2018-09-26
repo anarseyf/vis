@@ -33,11 +33,11 @@ export class DijkstraService {
                     q.addWithPriority(v, distance);
                 }
             }
-            console.log(`${q}`);
+            // console.log(`${q}`);
             yield;
         }
 
-        console.log(`DONE: ${q}`);
+        console.log(`FINAL QUEUE: ${q}`);
 
         let result: Node[] = [];
         if (dist.get(target) < Infinity) {

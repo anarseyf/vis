@@ -12,7 +12,7 @@ import { DijkstraService } from "./dijkstra.service";
 export class AlgorithmsComponent implements OnInit, AfterContentInit {
 
     graph: Graph;
-    nodeCount: number = 30;
+    nodeCount: number = 40;
     width: number = 600;
     height: number = 400;
     circleRadius: number = 6;
@@ -22,11 +22,36 @@ export class AlgorithmsComponent implements OnInit, AfterContentInit {
         this.reset();
     }
 
+    reset() {
+        this.resetSVG();
+
+        let margin = this.circleRadius * 4;
+        let nodes = new Array(this.nodeCount)
+            .fill(0)
+            .map((v, i) => {
+                return new Node(this.randomNumber(this.width - margin) + margin/2,
+                    this.randomNumber(this.height - margin) + margin/2,
+                    `${i}`);
+            })
+            .sort((a, b) => a.x - b.x);
+        this.graph = new Graph(nodes);
+
+        this.addRandomEdges();
+        this.drawGraph(this.graph);
+
+        let [ source, target ] = this.getRandomStartEndNodes();
+        source.special = target.special = true;
+
+        let doneCallback = ((path: Node[]) => {
+            this.visitPath(path, this.graph);
+        });
+        this.runDijkstra(this.graph, source, target, doneCallback);
+    }
+
     ngOnInit() {
     }
 
     ngAfterContentInit() {
-        this.drawGraph();
     }
 
     randomNumber(max: number) {
@@ -45,24 +70,6 @@ export class AlgorithmsComponent implements OnInit, AfterContentInit {
             let edge = new Edge(nodes[i1], nodes[i2]);
             this.graph.addEdge(edge);
         }
-
-        this.drawGraph();
-        console.log(`${this.graph}`);
-    }
-
-    visitRandomNodes() {
-
-        let nodes = Array.from(this.graph.nodes);
-        let count = nodes.length * 2;
-        for (let i = 0; i < count; i++) {
-            let from = nodes[this.randomNumber(nodes.length - 1)];
-            let neighbors = Array.from(from.neighbors());
-            let to = neighbors[this.randomNumber(neighbors.length - 1)];
-            let success = this.graph.visit(from, to);
-        }
-
-        this.drawGraph();
-        console.log(`${this.graph}`);
     }
 
     getRandomStartEndNodes() {
@@ -72,75 +79,77 @@ export class AlgorithmsComponent implements OnInit, AfterContentInit {
         return [source, target];
     }
 
-    runDijkstra(source: Node, target: Node) {
+    runDijkstra(graph: Graph, source: Node, target: Node, doneCallback: ((_: Node[]) => void)) {
 
-        let iterator = this.dijkstraService.shortestPath(this.graph, source, target);
+        let iterator = this.dijkstraService.shortestPath(graph, source, target);
 
         let callback = function (result) {
             if (result.done) {
+
+                // TODO - promises!
+
                 let path = result.value;
                 console.log(`Done: Path ${ source } -> ${ target }:\n\t${ path.join("\n\t") }`);
-                this.visitPath(path);
+                doneCallback(path);
             }
-            this.drawGraph();
         }.bind(this);
 
-        this.executeAfterTimeout(iterator, callback);
+        this.executeAfterDelay(0, iterator, callback);
     }
 
-    executeAfterTimeout(iterator, callback) {
+    executeAfterDelay(delay, iterator, callback) {
         setTimeout(function () {
             let result = iterator.next();
             callback(result);
             if (!result.done) {
-                this.executeAfterTimeout(iterator, callback);
+                this.executeAfterDelay(delay, iterator, callback);
             }
-        }.bind(this), this.delay);
+        }.bind(this), delay);
     }
 
-    visitPath(path: Node[]) {
-        for (let i = 0; i < path.length - 1; i++) {
-            let from = path[i], to = path[i + 1];
-            this.graph.visit(from, to);
-        }
-    }
+    visitPath(path: Node[], graph: Graph) {
 
-    reset() {
-        this.resetSVG();
+        this.drawGraph(graph);
 
-        let margin = this.circleRadius * 4;
-        let nodes = new Array(this.nodeCount)
-            .fill(0)
-            .map((v, i) => {
-                return new Node(this.randomNumber(this.width - margin) + margin/2,
-                                this.randomNumber(this.height - margin) + margin/2,
-                                `N-${i}`);
-            })
-            .sort((a, b) => a.x - b.x);
-        this.graph = new Graph(nodes);
+        let iterator = function*() {
+            for (let i = 0; i < path.length - 1; i++) {
+                let from = path[i], to = path[i + 1];
+                graph.visit(from, to);
+                yield;
+            }
+        }();
 
-        this.addRandomEdges();
-        // this.visitRandomNodes();
-        let [ source, target ] = this.getRandomStartEndNodes();
-        source.special = target.special = true;
-        this.runDijkstra(source, target);
+        let callback = function (result) {
+            this.drawGraph(graph);
+        }.bind(this);
+
+        this.executeAfterDelay(500, iterator, callback);
     }
 
     resetSVG() {
         d3.select("#svg").html("");
     }
 
-    drawGraph() {
-        this.drawEdges();
-        this.drawNodes();
+    drawGraph(graph: Graph) {
+        this.drawEdges(graph);
+        this.drawNodes(graph);
     }
 
-    drawNodes() {
-        let nodes = Array.from(this.graph.nodes);
+    drawNodes(graph: Graph) {
+        let radius = this.circleRadius;
+        let nodes = Array.from(graph.nodes);
         let svg = d3.select("#svg");
 
         let circles = svg.selectAll("circle")
             .data(nodes);
+
+        circles
+            .attr("stroke-width", function (d: Node) {
+                return d.special ? 2 : 1;
+            })
+            .attr("fill", function (d: Node) {
+                return d.special ? "red" : (d.visited ? 'darkgray' : 'lightgray');
+            });
 
         circles.enter()
             .append("circle")
@@ -151,36 +160,44 @@ export class AlgorithmsComponent implements OnInit, AfterContentInit {
                 return d.y;
             })
             .attr("r", this.circleRadius)
-            .attr("stroke", "gray")
-            .attr("stroke-width", function (d: Node) {
-                return d.special ? 2 : 1;
-            })
-            .attr("fill", function (d: Node) {
-                return d.special ? "red" : (d.visited ? 'darkgray' : 'lightgray');
-            });
+            .attr("stroke", "gray");
 
         circles.exit().remove();
+
+        // circlesEnter
+        //     .append("text")
+        //     .attr("x", function (d) {
+        //         return d.x + radius;
+        //     })
+        //     .attr("y", function (d) {
+        //         return d.y + radius;
+        //     })
+        //     .text(function (d: Node) {
+        //         return d.name;
+        //     });
     }
 
-    drawEdges() {
-        let edges = this.graph.edges;
+    drawEdges(graph: Graph) {
+        let edges = graph.edges;
         let svg = d3.select("#svg");
 
         let lines = svg.selectAll("line")
             .data(edges);
 
-        lines.enter()
-            .append("line")
-            .attr("x1", function (edge: Edge) { return edge.node1.x; })
-            .attr("x2", function (edge: Edge) { return edge.node2.x; })
-            .attr("y1", function (edge: Edge) { return edge.node1.y; })
-            .attr("y2", function (edge: Edge) { return edge.node2.y; })
+        lines
             .attr("stroke", function(d: Edge) {
                 return d.visited ? 'darkgray' : 'lightgray';
             })
             .attr("stroke-width", function(d: Edge) {
                 return d.visited ? 3 : 1;
             });
+
+        lines.enter()
+            .append("line")
+            .attr("x1", function (edge: Edge) { return edge.node1.x; })
+            .attr("x2", function (edge: Edge) { return edge.node2.x; })
+            .attr("y1", function (edge: Edge) { return edge.node1.y; })
+            .attr("y2", function (edge: Edge) { return edge.node2.y; });
 
         lines.exit().remove();
     }

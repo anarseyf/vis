@@ -25,7 +25,8 @@ export class Node {
         return this.edges.has(node);
     }
     toString() {
-        return `${this.name} (x:${this.x}, y:${this.y}, visited: ${this.visited}, neighbors: ${this.edges.size})`;
+        let neighborsStr = [...this.neighbors().values()].map(n => n.name).join(", ");
+        return `${this.name} (v: ${this.visited}, n: ${neighborsStr})`;
     }
 }
 
@@ -51,7 +52,7 @@ export class Edge {
     }
 
     toString() {
-        return `Edge (${this.node1.name} - ${this.node2.name}, visited: ${this.visited}, dist: ${this.distance})`;
+        return `Edge (${this.node1.name} <-> ${this.node2.name}, v: ${this.visited}, d: ${this.distance})`;
     }
 }
 
@@ -87,11 +88,11 @@ export class Graph {
 
     visit(from: Node, to: Node) : boolean {
 
-        // console.log(`Visiting ${from} -> ${to}`);
+        console.log(`Visiting ${from} -> ${to}`);
 
         let edge = from.edges.get(to);
         if (!edge) {
-            // console.warn(`Nodes are not neighbors: ${from}, ${to}`);
+            console.warn(`Nodes are not neighbors: ${from}, ${to}`);
             return false;
         }
 
@@ -101,8 +102,8 @@ export class Graph {
 
     toString() {
         const nodesStr = Array.from(this.nodes).join("\n\t");
-        const edgesStr = this.edges.join("\n\t");
+        // const edgesStr = this.edges.join("\n\t");
 
-        return `Graph:\n\t${nodesStr}\n\t${edgesStr}`;
+        return `Graph:\n\t${nodesStr}`;
     }
 }
