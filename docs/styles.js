@@ -2,7 +2,7 @@
 
 /***/ "./node_modules/raw-loader/index.js!./node_modules/postcss-loader/lib/index.js?!./src/styles.css":
 /*!**********************************************************************************************!*\
-  !*** ./node_modules/raw-loader!./node_modules/postcss-loader/lib??embedded!./src/styles.css ***!
+  !*** ./node_modules/raw-loader!./node_modules/postcss-loader/lib??embedded!./src/styles.scss ***!
   \**********************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
@@ -504,13 +504,13 @@ module.exports = function (css) {
 
 /***/ "./src/styles.css":
 /*!************************!*\
-  !*** ./src/styles.css ***!
+  !*** ./src/styles.scss ***!
   \************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-var content = __webpack_require__(/*! !../node_modules/raw-loader!../node_modules/postcss-loader/lib??embedded!./styles.css */ "./node_modules/raw-loader/index.js!./node_modules/postcss-loader/lib/index.js?!./src/styles.css");
+var content = __webpack_require__(/*! !../node_modules/raw-loader!../node_modules/postcss-loader/lib??embedded!./styles.scss */ "./node_modules/raw-loader/index.js!./node_modules/postcss-loader/lib/index.js?!./src/styles.scss");
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 
@@ -534,12 +534,12 @@ if(false) {}
 
 /***/ 2:
 /*!******************************!*\
-  !*** multi ./src/styles.css ***!
+  !*** multi ./src/styles.scss ***!
   \******************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /Users/wy6cat/Projects/Web/vis/src/styles.css */"./src/styles.css");
+module.exports = __webpack_require__(/*! /Users/wy6cat/Projects/Web/vis/src/styles.scss */"./src/styles.scss");
 
 
 /***/ })

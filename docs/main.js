@@ -25,7 +25,7 @@ webpackEmptyAsyncContext.id = "./src/$$_lazy_route_resource lazy recursive";
 
 /***/ "./src/app/algorithms/algorithms.component.css":
 /*!*****************************************************!*\
-  !*** ./src/app/algorithms/algorithms.component.css ***!
+  !*** ./src/app/algorithms/algorithms.component.scss ***!
   \*****************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
@@ -290,7 +290,7 @@ var AlgorithmsComponent = /** @class */ (function () {
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             selector: 'app-algorithms',
             template: __webpack_require__(/*! ./algorithms.component.html */ "./src/app/algorithms/algorithms.component.html"),
-            styles: [__webpack_require__(/*! ./algorithms.component.css */ "./src/app/algorithms/algorithms.component.css")]
+            styles: [__webpack_require__(/*! ./algorithms.component.scss */ "./src/app/algorithms/algorithms.component.scss")]
         }),
         __metadata("design:paramtypes", [_dijkstra_service__WEBPACK_IMPORTED_MODULE_3__["DijkstraService"]])
     ], AlgorithmsComponent);
@@ -645,7 +645,7 @@ var Graph = /** @class */ (function () {
 
 /***/ "./src/app/app.component.css":
 /*!***********************************!*\
-  !*** ./src/app/app.component.css ***!
+  !*** ./src/app/app.component.scss ***!
   \***********************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
@@ -700,7 +700,7 @@ var AppComponent = /** @class */ (function () {
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             selector: 'app-root',
             template: __webpack_require__(/*! ./app.component.html */ "./src/app/app.component.html"),
-            styles: [__webpack_require__(/*! ./app.component.css */ "./src/app/app.component.css")]
+            styles: [__webpack_require__(/*! ./app.component.scss */ "./src/app/app.component.scss")]
         }),
         __metadata("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]])
     ], AppComponent);
